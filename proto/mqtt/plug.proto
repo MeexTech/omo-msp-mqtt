@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+package omo.msp.mqtt;
+option go_package= "proto/mqtt;omo_msp_mqtt";
+import "proto/mqtt/common.proto";
+
+//地图锚点
+service PlugService {
+  rpc AddOne(ReqPlugAdd) returns (ReplyPlugOne) {}
+  rpc GetOne(RequestInfo) returns (ReplyPlugOne) {}
+  rpc RemoveOne(RequestInfo) returns (ReplyInfo) {}
+  rpc GetByFilter(RequestFilter) returns (ReplyPlugList) {}
+  rpc GetStatistic(RequestFilter) returns (ReplyStatistic) {}
+  rpc UpdateBase(ReqPlugUpdate) returns (ReplyInfo) {}
+  rpc UpdateByFilter(RequestUpdate) returns (ReplyInfo) {}
+}
+
+message PlugInfo {
+  string uid = 1;
+  uint64 id = 2;
+  int64 created = 3;
+  int64 updated = 4;
+  string creator = 5;
+  string operator = 6;
+  string name = 7;
+  string remark = 8;
+  string area = 9;
+  string scene = 10;
+  string device = 11;
+  uint32 power = 12;
+  string socket1 = 13;
+  string socket2 = 14;
+  string socket3 = 15;
+  string smoke = 16;
+  string temp = 17;
+  uint32 heartbeat = 18;
+}
+
+message ReqPlugAdd {
+  string name = 1;
+  string scene = 2;
+  string remark = 3;
+  string area = 4;
+  string operator = 5;
+  string device = 6;
+  uint32 power = 7;
+  string socket1 = 8;
+  string socket2 = 9;
+  string socket3 = 10;
+  string smoke = 11;
+  string temp = 12;
+  uint32 heartbeat = 13;
+}
+
+message ReqPlugUpdate{
+  string uid = 1;
+  string name = 2;
+  string remark = 3;
+  string operator = 4;
+  uint32 power = 5;
+}
+
+message ReplyPlugOne{
+  PlugInfo info = 1;
+  ReplyStatus status = 2;
+}
+
+message ReplyPlugList{
+  uint32 total = 1;
+  uint32 pageMax = 2;
+  uint32 pageNow = 3;
+  repeated PlugInfo list = 4;
+  ReplyStatus status = 5;
+}

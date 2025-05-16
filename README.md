@@ -1,2 +1,2 @@
 # omo-msp-mqtt
-mqtt相关协议
+微服务协议-MQTT
