@@ -39,8 +39,8 @@ type PlugService interface {
 	RemoveOne(ctx context.Context, in *RequestInfo, opts ...client.CallOption) (*ReplyInfo, error)
 	GetByFilter(ctx context.Context, in *RequestFilter, opts ...client.CallOption) (*ReplyPlugList, error)
 	GetStatistic(ctx context.Context, in *RequestFilter, opts ...client.CallOption) (*ReplyStatistic, error)
-	UpdateBase(ctx context.Context, in *ReqPlugUpdate, opts ...client.CallOption) (*ReplyInfo, error)
-	UpdateByFilter(ctx context.Context, in *RequestUpdate, opts ...client.CallOption) (*ReplyInfo, error)
+	UpdateBase(ctx context.Context, in *ReqPlugUpdate, opts ...client.CallOption) (*ReplyPlugOne, error)
+	UpdateByFilter(ctx context.Context, in *RequestUpdate, opts ...client.CallOption) (*ReplyPlugOne, error)
 }
 
 type plugService struct {
@@ -105,9 +105,9 @@ func (c *plugService) GetStatistic(ctx context.Context, in *RequestFilter, opts 
 	return out, nil
 }
 
-func (c *plugService) UpdateBase(ctx context.Context, in *ReqPlugUpdate, opts ...client.CallOption) (*ReplyInfo, error) {
+func (c *plugService) UpdateBase(ctx context.Context, in *ReqPlugUpdate, opts ...client.CallOption) (*ReplyPlugOne, error) {
 	req := c.c.NewRequest(c.name, "PlugService.UpdateBase", in)
-	out := new(ReplyInfo)
+	out := new(ReplyPlugOne)
 	err := c.c.Call(ctx, req, out, opts...)
 	if err != nil {
 		return nil, err
@@ -115,9 +115,9 @@ func (c *plugService) UpdateBase(ctx context.Context, in *ReqPlugUpdate, opts ..
 	return out, nil
 }
 
-func (c *plugService) UpdateByFilter(ctx context.Context, in *RequestUpdate, opts ...client.CallOption) (*ReplyInfo, error) {
+func (c *plugService) UpdateByFilter(ctx context.Context, in *RequestUpdate, opts ...client.CallOption) (*ReplyPlugOne, error) {
 	req := c.c.NewRequest(c.name, "PlugService.UpdateByFilter", in)
-	out := new(ReplyInfo)
+	out := new(ReplyPlugOne)
 	err := c.c.Call(ctx, req, out, opts...)
 	if err != nil {
 		return nil, err
@@ -133,8 +133,8 @@ type PlugServiceHandler interface {
 	RemoveOne(context.Context, *RequestInfo, *ReplyInfo) error
 	GetByFilter(context.Context, *RequestFilter, *ReplyPlugList) error
 	GetStatistic(context.Context, *RequestFilter, *ReplyStatistic) error
-	UpdateBase(context.Context, *ReqPlugUpdate, *ReplyInfo) error
-	UpdateByFilter(context.Context, *RequestUpdate, *ReplyInfo) error
+	UpdateBase(context.Context, *ReqPlugUpdate, *ReplyPlugOne) error
+	UpdateByFilter(context.Context, *RequestUpdate, *ReplyPlugOne) error
 }
 
 func RegisterPlugServiceHandler(s server.Server, hdlr PlugServiceHandler, opts ...server.HandlerOption) error {
@@ -144,8 +144,8 @@ func RegisterPlugServiceHandler(s server.Server, hdlr PlugServiceHandler, opts .
 		RemoveOne(ctx context.Context, in *RequestInfo, out *ReplyInfo) error
 		GetByFilter(ctx context.Context, in *RequestFilter, out *ReplyPlugList) error
 		GetStatistic(ctx context.Context, in *RequestFilter, out *ReplyStatistic) error
-		UpdateBase(ctx context.Context, in *ReqPlugUpdate, out *ReplyInfo) error
-		UpdateByFilter(ctx context.Context, in *RequestUpdate, out *ReplyInfo) error
+		UpdateBase(ctx context.Context, in *ReqPlugUpdate, out *ReplyPlugOne) error
+		UpdateByFilter(ctx context.Context, in *RequestUpdate, out *ReplyPlugOne) error
 	}
 	type PlugService struct {
 		plugService
@@ -178,10 +178,10 @@ func (h *plugServiceHandler) GetStatistic(ctx context.Context, in *RequestFilter
 	return h.PlugServiceHandler.GetStatistic(ctx, in, out)
 }
 
-func (h *plugServiceHandler) UpdateBase(ctx context.Context, in *ReqPlugUpdate, out *ReplyInfo) error {
+func (h *plugServiceHandler) UpdateBase(ctx context.Context, in *ReqPlugUpdate, out *ReplyPlugOne) error {
 	return h.PlugServiceHandler.UpdateBase(ctx, in, out)
 }
 
-func (h *plugServiceHandler) UpdateByFilter(ctx context.Context, in *RequestUpdate, out *ReplyInfo) error {
+func (h *plugServiceHandler) UpdateByFilter(ctx context.Context, in *RequestUpdate, out *ReplyPlugOne) error {
 	return h.PlugServiceHandler.UpdateByFilter(ctx, in, out)
 }
