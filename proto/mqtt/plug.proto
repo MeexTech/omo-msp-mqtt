@@ -48,7 +48,7 @@ message ReqPlugAdd {
   string socket2 = 9;
   string socket3 = 10;
   string smoke = 11;
-  string temp = 12;
+  float  temperature = 12;
   uint32 heartbeat = 13;
 }
 
