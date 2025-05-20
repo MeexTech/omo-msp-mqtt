@@ -32,7 +32,7 @@ message PlugInfo {
   string socket2 = 14;
   string socket3 = 15;
   string smoke = 16;
-  string temp = 17;
+  float temper = 17;
   uint32 heartbeat = 18;
 }
 
