@@ -41,6 +41,7 @@ type PlugService interface {
 	GetStatistic(ctx context.Context, in *RequestFilter, opts ...client.CallOption) (*ReplyStatistic, error)
 	UpdateBase(ctx context.Context, in *ReqPlugUpdate, opts ...client.CallOption) (*ReplyPlugOne, error)
 	UpdateByFilter(ctx context.Context, in *RequestUpdate, opts ...client.CallOption) (*ReplyPlugOne, error)
+	UpdateSocket(ctx context.Context, in *ReqPlugSocket, opts ...client.CallOption) (*ReplyPlugOne, error)
 }
 
 type plugService struct {
@@ -125,6 +126,16 @@ func (c *plugService) UpdateByFilter(ctx context.Context, in *RequestUpdate, opt
 	return out, nil
 }
 
+func (c *plugService) UpdateSocket(ctx context.Context, in *ReqPlugSocket, opts ...client.CallOption) (*ReplyPlugOne, error) {
+	req := c.c.NewRequest(c.name, "PlugService.UpdateSocket", in)
+	out := new(ReplyPlugOne)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // Server API for PlugService service
 
 type PlugServiceHandler interface {
@@ -135,6 +146,7 @@ type PlugServiceHandler interface {
 	GetStatistic(context.Context, *RequestFilter, *ReplyStatistic) error
 	UpdateBase(context.Context, *ReqPlugUpdate, *ReplyPlugOne) error
 	UpdateByFilter(context.Context, *RequestUpdate, *ReplyPlugOne) error
+	UpdateSocket(context.Context, *ReqPlugSocket, *ReplyPlugOne) error
 }
 
 func RegisterPlugServiceHandler(s server.Server, hdlr PlugServiceHandler, opts ...server.HandlerOption) error {
@@ -146,6 +158,7 @@ func RegisterPlugServiceHandler(s server.Server, hdlr PlugServiceHandler, opts .
 		GetStatistic(ctx context.Context, in *RequestFilter, out *ReplyStatistic) error
 		UpdateBase(ctx context.Context, in *ReqPlugUpdate, out *ReplyPlugOne) error
 		UpdateByFilter(ctx context.Context, in *RequestUpdate, out *ReplyPlugOne) error
+		UpdateSocket(ctx context.Context, in *ReqPlugSocket, out *ReplyPlugOne) error
 	}
 	type PlugService struct {
 		plugService
@@ -184,4 +197,8 @@ func (h *plugServiceHandler) UpdateBase(ctx context.Context, in *ReqPlugUpdate, 
 
 func (h *plugServiceHandler) UpdateByFilter(ctx context.Context, in *RequestUpdate, out *ReplyPlugOne) error {
 	return h.PlugServiceHandler.UpdateByFilter(ctx, in, out)
+}
+
+func (h *plugServiceHandler) UpdateSocket(ctx context.Context, in *ReqPlugSocket, out *ReplyPlugOne) error {
+	return h.PlugServiceHandler.UpdateSocket(ctx, in, out)
 }

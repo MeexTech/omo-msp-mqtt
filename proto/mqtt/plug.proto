@@ -13,6 +13,7 @@ service PlugService {
   rpc GetStatistic(RequestFilter) returns (ReplyStatistic) {}
   rpc UpdateBase(ReqPlugUpdate) returns (ReplyPlugOne) {}
   rpc UpdateByFilter(RequestUpdate) returns (ReplyPlugOne) {}
+  rpc UpdateSocket(ReqPlugSocket) returns (ReplyPlugOne) {}
 }
 
 message PlugInfo {
@@ -50,6 +51,16 @@ message ReqPlugAdd {
   string smoke = 11;
   float  temperature = 12;
   uint32 heartbeat = 13;
+}
+
+message ReqPlugSocket{
+  string key = 1;
+  string name = 2;
+  uint32 begin = 3;
+  uint32 end = 4;
+  uint32 skip = 5;
+  string operator = 6;
+  repeated uint32 weeks = 10;
 }
 
 message ReqPlugUpdate{
