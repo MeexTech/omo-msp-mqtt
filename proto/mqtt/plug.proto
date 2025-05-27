@@ -54,12 +54,13 @@ message ReqPlugAdd {
 }
 
 message ReqPlugSocket{
-  string key = 1;
-  string name = 2;
-  uint32 begin = 3;
-  uint32 end = 4;
-  uint32 skip = 5;
-  string operator = 6;
+  string uid = 1;
+  string key = 2;
+  string name = 3;
+  uint32 begin = 4;
+  uint32 end = 5;
+  uint32 skip = 6;
+  string operator = 7;
   repeated uint32 weeks = 10;
 }
 
