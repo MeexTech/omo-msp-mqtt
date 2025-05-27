@@ -32,9 +32,7 @@ message PlugInfo {
   string smoke = 13;
   float temper = 14;
   uint32 heartbeat = 15;
-  SocketInfo socket1 = 19;
-  SocketInfo socket2 = 20;
-  SocketInfo socket3 = 21;
+  repeated SocketInfo sockets = 21;
 }
 
 message ReqPlugAdd {
@@ -45,12 +43,10 @@ message ReqPlugAdd {
   string operator = 5;
   string device = 6;
   uint32 power = 7;
-  string socket1 = 8;
-  string socket2 = 9;
-  string socket3 = 10;
   string smoke = 11;
   float  temperature = 12;
   uint32 heartbeat = 13;
+  repeated string sockets = 21;
 }
 
 message ReqPlugSocket{
