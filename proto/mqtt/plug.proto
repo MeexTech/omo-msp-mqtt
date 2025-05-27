@@ -28,12 +28,12 @@ message PlugInfo {
   string scene = 10;
   string device = 11;
   uint32 power = 12;
-  string socket1 = 13;
-  string socket2 = 14;
-  string socket3 = 15;
-  string smoke = 16;
-  float temper = 17;
-  uint32 heartbeat = 18;
+  string smoke = 13;
+  float temper = 14;
+  uint32 heartbeat = 15;
+  SocketInfo socket1 = 19;
+  SocketInfo socket2 = 20;
+  SocketInfo socket3 = 21;
 }
 
 message ReqPlugAdd {

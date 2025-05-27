@@ -35,6 +35,15 @@ message ReplyStatus {
   string error = 2;
 }
 
+message SocketInfo {
+  string key = 1;
+  string name = 2;
+  uint32 skip = 3;
+  uint32 begin = 4;
+  uint32 end = 5;
+  repeated uint32 weeks = 10;
+}
+
 message ReplyInfo {
   string uid = 1;
   ReplyStatus status = 2;
