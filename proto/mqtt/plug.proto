@@ -35,9 +35,13 @@ message PlugInfo {
 }
 
 message PlugStatusInfo {
-  uint32 power = 1;
-  string smoke = 2;
-  float temper = 3;
+  string uid = 1;
+  string device = 2;
+  uint32 power = 3;
+  string smoke = 4;
+  float temper = 5;
+  string scene = 6;
+  string area = 7;
 }
 
 message ReqPlugAdd {

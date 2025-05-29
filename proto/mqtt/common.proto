@@ -41,6 +41,7 @@ message SocketInfo {
   uint32 skip = 3;
   uint32 begin = 4;
   uint32 end = 5;
+  uint32 status = 6;
   repeated uint32 weeks = 10;
 }
 
