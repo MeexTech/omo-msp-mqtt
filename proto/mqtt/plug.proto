@@ -35,7 +35,7 @@ message PlugInfo {
 }
 
 message PlugStatusInfo {
-  string power = 1;
+  uint32 power = 1;
   string smoke = 2;
   float temper = 3;
 }
@@ -47,9 +47,7 @@ message ReqPlugAdd {
   string area = 4;
   string operator = 5;
   string device = 6;
-  uint32 power = 7;
-  string smoke = 11;
-  float  temperature = 12;
+  string contact = 7;
   uint32 heartbeat = 13;
   repeated string sockets = 21;
 }
