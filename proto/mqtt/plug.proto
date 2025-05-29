@@ -10,7 +10,7 @@ service PlugService {
   rpc GetOne(RequestInfo) returns (ReplyPlugOne) {}
   rpc RemoveOne(RequestInfo) returns (ReplyInfo) {}
   rpc GetByFilter(RequestFilter) returns (ReplyPlugList) {}
-  rpc GetStatistic(RequestFilter) returns (ReplyStatistic) {}
+  rpc GetStatistic(RequestFilter) returns (ReplyPlugStatus) {}
   rpc UpdateBase(ReqPlugUpdate) returns (ReplyPlugOne) {}
   rpc UpdateByFilter(RequestUpdate) returns (ReplyPlugOne) {}
   rpc UpdateSocket(ReqPlugSocket) returns (ReplyPlugOne) {}
@@ -28,11 +28,16 @@ message PlugInfo {
   string area = 9;
   string scene = 10;
   string device = 11;
-  uint32 power = 12;
-  string smoke = 13;
-  float temper = 14;
-  uint32 heartbeat = 15;
+  uint32 heartbeat = 12;
+  string contact = 13;
+  PlugStatusInfo status = 17;
   repeated SocketInfo sockets = 21;
+}
+
+message PlugStatusInfo {
+  string power = 1;
+  string smoke = 2;
+  float temper = 3;
 }
 
 message ReqPlugAdd {
@@ -56,7 +61,8 @@ message ReqPlugSocket{
   uint32 begin = 4;
   uint32 end = 5;
   uint32 skip = 6;
-  string operator = 7;
+  uint32 status = 7;
+  string operator = 8;
   repeated uint32 weeks = 10;
 }
 
@@ -79,4 +85,12 @@ message ReplyPlugList{
   uint32 pageNow = 3;
   repeated PlugInfo list = 4;
   ReplyStatus status = 5;
+}
+
+message ReplyPlugStatus{
+  ReplyStatus status = 1;
+  uint32 total = 2;
+  uint32 pageMax = 3;
+  uint32 pageNow = 4;
+  repeated PlugStatusInfo list = 5;
 }
