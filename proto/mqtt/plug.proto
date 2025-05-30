@@ -42,6 +42,7 @@ message PlugStatusInfo {
   float temper = 5;
   string scene = 6;
   string area = 7;
+  int64 updated = 8;
 }
 
 message ReqPlugAdd {
