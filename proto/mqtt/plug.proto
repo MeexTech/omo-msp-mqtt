@@ -74,7 +74,8 @@ message ReqPlugUpdate{
   string name = 2;
   string remark = 3;
   string operator = 4;
-  uint32 power = 5;
+  string contact = 5;
+  string flag = 6;
 }
 
 message ReplyPlugOne{
