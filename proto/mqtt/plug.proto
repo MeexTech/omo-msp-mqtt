@@ -4,7 +4,7 @@ package omo.msp.mqtt;
 option go_package= "proto/mqtt;omo_msp_mqtt";
 import "proto/mqtt/common.proto";
 
-//地图锚点
+//智能开关
 service PlugService {
   rpc AddOne(ReqPlugAdd) returns (ReplyPlugOne) {}
   rpc GetOne(RequestInfo) returns (ReplyPlugOne) {}
@@ -30,6 +30,7 @@ message PlugInfo {
   string device = 11;
   uint32 heartbeat = 12;
   string contact = 13;
+  uint32 online = 14;
   PlugStatusInfo status = 17;
   repeated SocketInfo sockets = 21;
 }
