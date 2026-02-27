@@ -31,6 +31,7 @@ message PlugInfo {
   uint32 heartbeat = 12;
   string contact = 13;
   uint32 online = 14;
+  uint32 kind = 15;
   PlugStatusInfo status = 17;
   repeated SocketInfo sockets = 21;
 }
@@ -55,6 +56,7 @@ message ReqPlugAdd {
   string device = 6;
   string contact = 7;
   uint32 heartbeat = 13;
+  uint32 kind = 14;
   repeated string sockets = 21;
 }
 
