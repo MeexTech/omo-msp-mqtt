@@ -32,6 +32,7 @@ message PlugInfo {
   string contact = 13;
   uint32 online = 14;
   uint32 kind = 15;
+  uint32 network = 16;
   PlugStatusInfo status = 17;
   repeated SocketInfo sockets = 21;
 }
@@ -45,6 +46,8 @@ message PlugStatusInfo {
   string scene = 6;
   string area = 7;
   int64 updated = 8;
+  uint32 online = 9;
+  uint32 network = 10;
 }
 
 message ReqPlugAdd {
