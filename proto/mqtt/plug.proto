@@ -41,7 +41,7 @@ message PlugInfo {
 message PlugStatusInfo {
   string uid = 1;
   string device = 2;
-  uint32 power = 3;
+  float power = 3;
   string smoke = 4;
   float temper = 5;
   string scene = 6;
