@@ -14,6 +14,7 @@ service PlugService {
   rpc UpdateBase(ReqPlugUpdate) returns (ReplyPlugOne) {}
   rpc UpdateByFilter(RequestUpdate) returns (ReplyPlugOne) {}
   rpc UpdateSocket(ReqPlugSocket) returns (ReplyPlugOne) {}
+  rpc GetLogs(RequestInfo) returns (ReplyPlugLogs) {}
 }
 
 message PlugInfo {
@@ -48,6 +49,17 @@ message PlugStatusInfo {
   int64 updated = 8;
   uint32 online = 9;
   uint32 network = 10;
+}
+
+message PlugLogInfo {
+  string uid = 1;
+  string name = 2;
+  int64 created = 3;
+  string operator = 4;
+  string meta = 5;
+  string device = 6;
+  string plug = 7;
+  uint32 option = 8;
 }
 
 message ReqPlugAdd {
@@ -94,6 +106,14 @@ message ReplyPlugList{
   uint32 pageMax = 2;
   uint32 pageNow = 3;
   repeated PlugInfo list = 4;
+  ReplyStatus status = 5;
+}
+
+message ReplyPlugLogs{
+  uint32 total = 1;
+  uint32 pageMax = 2;
+  uint32 pageNow = 3;
+  repeated PlugLogInfo list = 4;
   ReplyStatus status = 5;
 }
 

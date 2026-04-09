@@ -42,6 +42,7 @@ type PlugService interface {
 	UpdateBase(ctx context.Context, in *ReqPlugUpdate, opts ...client.CallOption) (*ReplyPlugOne, error)
 	UpdateByFilter(ctx context.Context, in *RequestUpdate, opts ...client.CallOption) (*ReplyPlugOne, error)
 	UpdateSocket(ctx context.Context, in *ReqPlugSocket, opts ...client.CallOption) (*ReplyPlugOne, error)
+	GetLogs(ctx context.Context, in *RequestInfo, opts ...client.CallOption) (*ReplyPlugLogs, error)
 }
 
 type plugService struct {
@@ -136,6 +137,16 @@ func (c *plugService) UpdateSocket(ctx context.Context, in *ReqPlugSocket, opts 
 	return out, nil
 }
 
+func (c *plugService) GetLogs(ctx context.Context, in *RequestInfo, opts ...client.CallOption) (*ReplyPlugLogs, error) {
+	req := c.c.NewRequest(c.name, "PlugService.GetLogs", in)
+	out := new(ReplyPlugLogs)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // Server API for PlugService service
 
 type PlugServiceHandler interface {
@@ -147,6 +158,7 @@ type PlugServiceHandler interface {
 	UpdateBase(context.Context, *ReqPlugUpdate, *ReplyPlugOne) error
 	UpdateByFilter(context.Context, *RequestUpdate, *ReplyPlugOne) error
 	UpdateSocket(context.Context, *ReqPlugSocket, *ReplyPlugOne) error
+	GetLogs(context.Context, *RequestInfo, *ReplyPlugLogs) error
 }
 
 func RegisterPlugServiceHandler(s server.Server, hdlr PlugServiceHandler, opts ...server.HandlerOption) error {
@@ -159,6 +171,7 @@ func RegisterPlugServiceHandler(s server.Server, hdlr PlugServiceHandler, opts .
 		UpdateBase(ctx context.Context, in *ReqPlugUpdate, out *ReplyPlugOne) error
 		UpdateByFilter(ctx context.Context, in *RequestUpdate, out *ReplyPlugOne) error
 		UpdateSocket(ctx context.Context, in *ReqPlugSocket, out *ReplyPlugOne) error
+		GetLogs(ctx context.Context, in *RequestInfo, out *ReplyPlugLogs) error
 	}
 	type PlugService struct {
 		plugService
@@ -201,4 +214,8 @@ func (h *plugServiceHandler) UpdateByFilter(ctx context.Context, in *RequestUpda
 
 func (h *plugServiceHandler) UpdateSocket(ctx context.Context, in *ReqPlugSocket, out *ReplyPlugOne) error {
 	return h.PlugServiceHandler.UpdateSocket(ctx, in, out)
+}
+
+func (h *plugServiceHandler) GetLogs(ctx context.Context, in *RequestInfo, out *ReplyPlugLogs) error {
+	return h.PlugServiceHandler.GetLogs(ctx, in, out)
 }
