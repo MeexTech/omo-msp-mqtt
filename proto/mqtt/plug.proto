@@ -14,7 +14,7 @@ service PlugService {
   rpc UpdateBase(ReqPlugUpdate) returns (ReplyPlugOne) {}
   rpc UpdateByFilter(RequestUpdate) returns (ReplyPlugOne) {}
   rpc UpdateSocket(ReqPlugSocket) returns (ReplyPlugOne) {}
-  rpc GetLogs(RequestInfo) returns (ReplyPlugLogs) {}
+  rpc GetLogs(RequestFilter) returns (ReplyPlugLogs) {}
 }
 
 message PlugInfo {
